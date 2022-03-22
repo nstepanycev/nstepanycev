@@ -1,0 +1,32 @@
+package storage
+
+import (
+	"fmt"
+	"errors"
+)
+
+type storage interface{
+	insert(e Employee) error
+	get(id int) (Employee, error)
+	delete(id int) error
+}
+func NewMamoryStorage() *MamoryStorage{
+	return &MamoryStorage{
+		data: make(map[int]Employee),
+	}
+}
+func (s *MamoryStorage) insert(e employee) error{
+	s.data[e.id] = e
+	return nil
+}
+func (s *mamoryStorage) get(id int) (employee, error) {
+	e, exists := s.data[id]
+	if !exists {
+		return employee{}, errors.New("employee with such it doesn't exists")
+	}
+	return e, nil
+}
+func (s *mamoryStorage) delete(id int) error {
+	delete(s.data[id])
+	return nil
+}
